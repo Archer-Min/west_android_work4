@@ -2,7 +2,10 @@ package com.example.junjin.model.network.service
 
 import com.example.junjin.base.dto.BaseDto
 import com.example.junjin.model.network.dto.Article
+import com.example.junjin.model.network.dto.SendCommentRequest
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -22,4 +25,10 @@ interface ArticleService {
     suspend fun getEssayDetail(
         @Path("articleId") articleId: String
     ): BaseDto<Article>
+    //发布评论
+    @POST("/article/{articleId}/comment")
+    suspend fun sendComment(
+        @Path("articleId") articleId: String,
+        @Body body: SendCommentRequest
+    ): BaseDto<Any>
 }

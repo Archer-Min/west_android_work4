@@ -14,7 +14,7 @@ data class Article (
     /**
      * 评论
      */
-    val comments: List<Comment>? = null,
+    val comments: List<Comment>,
 
     /**
      * 发布日期

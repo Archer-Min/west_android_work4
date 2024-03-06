@@ -6,27 +6,17 @@ package com.example.junjin.model.network.dto
  * 子评论
  */
 data class Comment (
-    /**
-     * 评论内容
-     */
     val context: String,
 
-    /**
-     * 评论日期
-     */
     val date: String,
 
-    /**
-     * 评论id
-     */
     val id: String,
 
-    /**
-     * 子评论
-     */
-    val subComments: Comment,
+    val subComments: List<SubComment>,
 
     val userId: Long,
 
-    val username: String
+    val username: String,
+
+    val avatar: String,
 )

@@ -1,6 +1,7 @@
 package com.example.junjin.model.network.service
 
 import com.example.junjin.base.dto.BaseDto
+import com.example.junjin.model.network.dto.MyLikeData
 import com.example.junjin.model.network.dto.UserDto
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -24,4 +25,7 @@ interface AccountService {
     suspend fun getAvatar(
         @Path("userId") userId:Int
     ):BaseDto<String>
+
+    @GET("/user/like")
+    suspend fun getLikes():BaseDto<List<MyLikeData>>
 }
