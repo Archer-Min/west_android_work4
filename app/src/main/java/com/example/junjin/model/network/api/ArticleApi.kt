@@ -16,4 +16,6 @@ object ArticleApi {
     suspend fun getEssayDetail(articleId: String) = articleService.getEssayDetail(articleId)
 
     suspend fun sendComment(articleId: String, sendCommentRequest: SendCommentRequest) = articleService.sendComment(articleId,sendCommentRequest)
+
+    suspend fun sendSubComment(articleId: String,commentId:String, sendCommentRequest: SendCommentRequest) = articleService.sendSubComment(articleId,commentId,sendCommentRequest)
 }

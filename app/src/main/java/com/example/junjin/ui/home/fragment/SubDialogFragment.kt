@@ -2,6 +2,7 @@ package com.example.junjin.ui.home.fragment
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import com.example.junjin.model.network.dto.SendCommentRequest
 import com.example.junjin.ui.home.viewModel.CommentViewModel
 import kotlinx.coroutines.launch
 
-class MyDialogFragment(private val index: Int) : DialogFragment() {
+class SubDialogFragment(private val articleId: String,private val commentId: String) : DialogFragment() {
 
     private lateinit var commentViewModel: CommentViewModel
     private var _binding: FragmentMyDialogBinding? = null
@@ -37,12 +38,12 @@ class MyDialogFragment(private val index: Int) : DialogFragment() {
             val comment = binding.commentInput.text
             val sendCommentRequest = SendCommentRequest(comment.toString())
             lifecycleScope.launch{
-                val result = ArticleApi.sendComment(index.toString(),sendCommentRequest)
+                val result = ArticleApi.sendSubComment(articleId,commentId,sendCommentRequest)
                 if (result.code == 200){
-                    Log.d("comment","评论成功！")
-                    commentViewModel.getCommentList(index.toString())
+                    Log.d("comment","回复评论成功！")
+                    commentViewModel.getCommentList(articleId)
                 }
-                dismiss()
+                //dismiss()
             }
         }
         return binding.root

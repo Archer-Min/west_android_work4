@@ -10,13 +10,17 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.junjin.R
 import com.example.junjin.model.network.api.AccountApi
+import com.example.junjin.model.network.api.ArticleApi
 import com.example.junjin.model.network.dto.Comment
+import com.example.junjin.ui.home.fragment.MyDialogFragment
+import com.example.junjin.ui.home.fragment.SubDialogFragment
 
-class CommentAdapter : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
+class CommentAdapter(private val fragmentManager: FragmentManager?, private val articleId: String) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
     private var comments: List<Comment> = emptyList()
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newList: List<Comment>) {
@@ -42,7 +46,17 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() 
         val nameTextView: TextView = itemView.findViewById(R.id.the_name)
         val commentTextView: TextView = itemView.findViewById(R.id.the_comment)
         val subCommentRecyclerView: RecyclerView = itemView.findViewById(R.id.sub_comment_recycler)
+        val replyIcon: ImageView = itemView.findViewById(R.id.reply)
 
+        init {
+            replyIcon.setOnClickListener{
+                val commentId = comments[position].id
+                val dialog = SubDialogFragment(articleId,commentId)
+                if (fragmentManager != null) {
+                    dialog.show(fragmentManager,"SubCommentFragment")
+                }
+            }
+        }
         fun bind(comment: Comment){
             nameTextView.text = comment.username
             commentTextView.text = comment.context

@@ -31,4 +31,11 @@ interface ArticleService {
         @Path("articleId") articleId: String,
         @Body body: SendCommentRequest
     ): BaseDto<Any>
+    //对评论进行评论
+    @POST("/article/{articleId}/{commentId}/comment")
+    suspend fun sendSubComment(
+        @Path("articleId") articleId: String,
+        @Path("commentId") commentId: String,
+        @Body body: SendCommentRequest
+    ): BaseDto<Any>
 }
