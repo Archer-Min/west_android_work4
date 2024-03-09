@@ -3,6 +3,7 @@ package com.example.junjin.model.network.service
 import com.example.junjin.base.dto.BaseDto
 import com.example.junjin.model.network.dto.Article
 import com.example.junjin.model.network.dto.SendCommentRequest
+import com.example.junjin.model.network.dto.PublishRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -37,5 +38,10 @@ interface ArticleService {
         @Path("articleId") articleId: String,
         @Path("commentId") commentId: String,
         @Body body: SendCommentRequest
+    ): BaseDto<Any>
+    //发表文章
+    @POST("/article/write-article")
+    suspend fun publish(
+        @Body body: PublishRequest
     ): BaseDto<Any>
 }

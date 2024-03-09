@@ -1,17 +1,24 @@
 package com.example.junjin.ui.home.viewModel
 
+import android.content.Intent
 import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bumptech.glide.load.HttpException
 import com.example.junjin.model.network.api.ArticleApi
 import com.example.junjin.model.network.dto.Article
+import com.example.junjin.ui.login.activity.LoginActivity
 
 class EssayViewModel : ViewModel() {
 
     // 定义 LiveData 对象用于保存文章列表数据
     private val _essayList = MutableLiveData<List<Article>>()
     val essayList: LiveData<List<Article>> = _essayList
+
+    private val _navigateToLogin = MutableLiveData<Boolean>()
+    val navigateToLogin: LiveData<Boolean> = _navigateToLogin
 
     // 获取文章列表(点击量排序）
     suspend fun getEssayClickList(numArticles: Int) {
@@ -25,10 +32,15 @@ class EssayViewModel : ViewModel() {
                 Log.d("EssayViewModel", "Failed to fetch essay list. Error code: ${result.code}")
             }
         } catch (e: Exception) {
-            // 处理异常情况
-            Log.e("EssayViewModel", "Exception occurred while fetching essay list", e)
+            Log.d("EssayViewModel", "Unauthorized: 401 error")
+            _navigateToLogin.value = true // 触发跳转到登录页面
         }
     }
+
+    fun onNavigateToLoginComplete() {
+        _navigateToLogin.value = false // 重置 LiveData，确保只触发一次跳转
+    }
+
     //日期排序
     suspend fun getEssayDateList(offset: Int) {
         try {

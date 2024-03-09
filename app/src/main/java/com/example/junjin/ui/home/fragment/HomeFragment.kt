@@ -1,5 +1,6 @@
 package com.example.junjin.ui.home.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ import com.example.junjin.base.ui.BaseFragment
 import com.example.junjin.databinding.FragmentHomeBinding
 import com.example.junjin.ui.home.adapter.EssayAdapter
 import com.example.junjin.ui.home.viewModel.EssayViewModel
+import com.example.junjin.ui.login.activity.LoginActivity
 import kotlinx.coroutines.launch
 
 
@@ -25,11 +28,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private lateinit var arrayAdapter: ArrayAdapter<String>
     private lateinit var spinner: Spinner
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // 初始化 ViewModel 和 Adapter
         viewModel = ViewModelProvider(this).get(EssayViewModel::class.java)
         essayAdapter = EssayAdapter(viewModel)
         arrayAdapter = ArrayAdapter(requireContext(),R.layout.item_spinner,resources.getStringArray(R.array.sorting_options))
+
+//        viewModel.navigateToLogin.observe(viewLifecycleOwner, Observer { navigateToLogin ->
+//            if (navigateToLogin) {
+//                // 执行跳转到登录页面的逻辑
+//                val intent = Intent(requireContext(), LoginActivity::class.java)
+//                startActivity(intent)
+//
+//                // 重置 LiveData，确保只触发一次跳转
+//                viewModel.onNavigateToLoginComplete()
+//            }
+//        })
         // 在视图创建时调用 ViewModel 的获取数据方法
         lifecycleScope.launch {
             try {

@@ -28,4 +28,7 @@ object KVUtil {
         else -> throw IllegalArgumentException("Unsupported type.")
     }
 
+    fun remove(key: String) {
+        mmkv.removeValueForKey(key)
+    }
 }

@@ -53,7 +53,7 @@ class EssayActivity : BaseActivity<ActivityEssayBinding>() {
                 essayViewModel.getEssayDateList(5)
                 //获取作者头像
                 essayViewModel.getUserId(index)?.let {
-                    val base64String = AccountApi.getAvatar(it).data
+                    val base64String = AccountApi.getAvatar(index).data
                     val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
                     val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
                     binding.avatar.setImageBitmap(bitmap)

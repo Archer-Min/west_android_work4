@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.junjin.R
 import com.example.junjin.model.network.dto.Article
 import com.example.junjin.ui.home.activity.EssayActivity
-import com.example.junjin.ui.home.viewModel.EssayViewModel
+import com.example.junjin.ui.my.viewmodel.MyEssayViewModel
 
-class EssayAdapter(private val viewModel: EssayViewModel) : RecyclerView.Adapter<EssayAdapter.EssayViewHolder>() {
+class MyEssayAdapter(private val viewModel: MyEssayViewModel) : RecyclerView.Adapter<MyEssayAdapter.MyEssayViewHolder>() {
 
     private var essays: List<Article> = emptyList()
     @SuppressLint("NotifyDataSetChanged")
@@ -23,17 +23,15 @@ class EssayAdapter(private val viewModel: EssayViewModel) : RecyclerView.Adapter
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EssayViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyEssayViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_essay_card, parent, false)
-        return EssayViewHolder(itemView)
+        return MyEssayViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: EssayViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyEssayViewHolder, position: Int) {
         val currentEssay = essays[position]
         holder.bind(currentEssay)
         holder.itemView.setOnClickListener{
-            viewModel.incrementClickCount(position)
-
             val intent = Intent(holder.itemView.context, EssayActivity::class.java)
             intent.putExtra("articleId",position)
             holder.itemView.context.startActivity(intent)
@@ -42,17 +40,15 @@ class EssayAdapter(private val viewModel: EssayViewModel) : RecyclerView.Adapter
 
     override fun getItemCount() = essays.size
 
-    inner class EssayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MyEssayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val idTextView: TextView = itemView.findViewById(R.id.essay_id)
         private val titleTextView: TextView = itemView.findViewById(R.id.essay_title)
         private val dateTextView: TextView = itemView.findViewById(R.id.date)
         private val likesTextView: TextView = itemView.findViewById(R.id.likes)
         private val clicksTextView: TextView = itemView.findViewById(R.id.clicks)
-        private val essayContainTextView: TextView = itemView.findViewById(R.id.essay_contain)
 
         fun bind(essay: Article) {
-            val index = position + 1
-            idTextView.text = index.toString()
+            idTextView.text = essay.articleId.toString()
             titleTextView.text = essay.title
             dateTextView.text = essay.date
             likesTextView.text = essay.like.toString()

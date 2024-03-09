@@ -23,6 +23,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 if (loginResult.code == 200) {
                     loginResult.data?.let {
                         KVUtil.put("token", it.token)
+                        KVUtil.put("userId",it.userId)
+                        KVUtil.put("userName",username)
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                         finish()

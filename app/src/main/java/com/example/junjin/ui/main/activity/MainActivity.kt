@@ -7,7 +7,7 @@ import com.example.junjin.base.ui.BaseActivity
 import com.example.junjin.databinding.ActivityMainBinding
 import com.example.junjin.ui.home.fragment.HomeFragment
 import com.example.junjin.ui.login.activity.LoginActivity
-import com.example.junjin.ui.my.MyFragment
+import com.example.junjin.ui.my.fragment.MyFragment
 import com.example.junjin.ui.write.WritingFragment
 import com.example.junjin.util.KVUtil
 
@@ -21,7 +21,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (KVUtil.get("token", "") == "") {
+        if (KVUtil.get("token", "") == "" ) {
+//            KVUtil.remove("token")
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()

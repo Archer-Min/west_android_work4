@@ -1,6 +1,7 @@
 package com.example.junjin.model.network.api
 
 import com.example.junjin.model.network.RetrofitProvider
+import com.example.junjin.model.network.dto.PublishRequest
 import com.example.junjin.model.network.dto.SendCommentRequest
 import com.example.junjin.model.network.service.ArticleService
 
@@ -18,4 +19,6 @@ object ArticleApi {
     suspend fun sendComment(articleId: String, sendCommentRequest: SendCommentRequest) = articleService.sendComment(articleId,sendCommentRequest)
 
     suspend fun sendSubComment(articleId: String,commentId:String, sendCommentRequest: SendCommentRequest) = articleService.sendSubComment(articleId,commentId,sendCommentRequest)
+
+    suspend fun publishEssay(publishRequest: PublishRequest) = articleService.publish(publishRequest)
 }
